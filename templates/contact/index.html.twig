@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des contacts{% endblock %}
+
+{% block description %}Consultation de la liste des contacts{% endblock %}
+
+{% block keywords %}Consultation, liste, contacts{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Liste des contacts</h1>
+
+    <div class="d-flex justify-content-end align-items-center my-3">
+        <a href="{{path('app_contact_create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-plus"></i> Nouveau contact</a>
+    </div>
+
+    {# read and display just one flash message type #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+{% endblock %}
