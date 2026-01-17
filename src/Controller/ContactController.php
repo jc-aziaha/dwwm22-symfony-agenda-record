@@ -99,4 +99,14 @@ final class ContactController extends AbstractController
 
         return $this->redirectToRoute("app_contact_index");
     }
+
+
+    #[Route('/contact/show/{id}', name: 'app_contact_show', methods: ['GET'])]
+    public function show(Contact $contact): Response {
+
+        return $this->render("contact/show.html.twig", [
+            "contact" => $contact
+        ]);
+    }
+
 }

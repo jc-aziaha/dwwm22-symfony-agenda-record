@@ -59,7 +59,7 @@
                         <td>{{contact.email}}</td>
                         <td>{{contact.phone}}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-dark">Lire</a>
+                            <a href="{{path('app_contact_show', {'id':contact.id})}}" class="btn btn-sm btn-dark">Lire</a>
                         </td>
                         <td class="d-flex justify-content-center align-items-center gap-2">
                             <a href="{{path('app_contact_edit', {'id':contact.id})}}" class="btn btn-sm btn-secondary">Modifier</a>
