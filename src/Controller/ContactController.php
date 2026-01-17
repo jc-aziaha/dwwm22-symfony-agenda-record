@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ContactController extends AbstractController
 {
@@ -57,6 +58,31 @@ final class ContactController extends AbstractController
 
         // 4. Passer la partie visible du formulaire à la vue, pour affichage.
         return $this->render('contact/create.html.twig', [
+            "form" => $form->createView()
+        ]);
+    }
+
+    #[Route('/contact/edit/{id}', name: 'app_contact_edit', methods: ['GET', 'POST'])]
+    public function edit(Contact $contact, Request $request, EntityManagerInterface $entityManager): Response {
+
+        $form = $this->createForm(ContactFormType::class, $contact);
+
+        $form->handleRequest($request);
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+
+            $contact->setUpdatedAt(new DateTimeImmutable());
+
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $this->addFlash("success", "Le contact a été modifié");
+
+            return $this->redirectToRoute('app_contact_index');
+        }
+
+        return $this->render('/contact/edit.html.twig', [
+            "contact" => $contact,
             "form" => $form->createView()
         ]);
     }
