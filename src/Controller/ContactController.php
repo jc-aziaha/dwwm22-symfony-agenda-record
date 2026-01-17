@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use DateTimeImmutable;
 use App\Entity\Contact;
 use App\Form\ContactFormType;
-use DateTimeImmutable;
+use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ContactController extends AbstractController
 {
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(ContactRepository $contactRepository): Response
     {
-        return $this->render('contact/index.html.twig');
+        $contacts = $contactRepository->findAll();
+
+        return $this->render('contact/index.html.twig', [
+            "contacts" => $contacts
+        ]);
     }
 
     #[Route('/contact/create', name: 'app_contact_create', methods: ['GET', 'POST'])]
