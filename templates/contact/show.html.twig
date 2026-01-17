@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lire le contact num-{{contact.id}}: {{contact.firstName}} {{contact.lastName}}{% endblock %}
+
+{% block description %}Lire ce contact: {{contact.firstName}} {{contact.lastName}}{% endblock %}
+
+{% block keywords %}lire, contact, {{contact.firstName}}, {{contact.lastName}}{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Les détails de ce contact</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 mx-auto p-4 bg-white shadow rounded">
+                <div>
+                    <p><strong>Prénom</strong>: {{contact.firstName}}</p>
+                    <p><strong>Nom</strong>: {{contact.lastName}}</p>
+                    <p><strong>Email</strong>: {{contact.email}}</p>
+                    <p><strong>Téléphone</strong>: {{contact.phone}}</p>
+
+                    {% if contact.comment is not empty %}
+                        <p><strong>Commentaires</strong>: {{contact.comment}}</p>
+                    {% else %}
+                        <p><strong>Commentaires</strong>: Non renseigné</p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
